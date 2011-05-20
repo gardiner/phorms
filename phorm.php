@@ -1,6 +1,119 @@
 <?php
 
-//Search for "function load_strings" to find error messages
+//DEV NOTE: Search for "function load_strings" to find error messages
+
+/*** SAMPLE USAGE ***
+
+<?php
+require_once('phorm.php');
+
+//Form field definitions:
+class OrderForm extends Phorm_Phorm {
+	protected function define_fields() {
+		$this->name = new Phorm_Field_Text("Name", 24, 255, array('required'));
+		$this->company = new Phorm_Field_Text("Company name", 24, 255);
+		$this->bookname = new Phorm_Field_DropDown("Selected Item", array(
+			'item1' => 'Book',
+			'item2' => 'Chair',
+			'item3' => 'Table',
+			'item4' => 'Lamp',
+		), array('required'));
+		$this->quantity = new Phorm_Field_Integer("Quantity", 5, 5, array('required'));
+		$this->message = new Phorm_Field_Textarea("Message", 8, 40);
+	}
+}
+
+//Form validation/processing:
+$form = new OrderForm();
+
+if ($form->is_valid()) {
+	foreach ($form->fields() as $field) {
+		echo $field->label(false) . ': ' . $field->get_value() . " <br />\n";
+	}
+	exit;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+//Display page and form:
+?>
+<html>
+<head>
+	<title>Form test</title>
+	
+	<style>
+	.errors {
+		background-color: #FFCCCC;
+		border: 1px solid red;
+		padding: 5px;
+		color: black;
+	}
+	.errors ul {
+		padding-top: 5px;
+		font-weight: bold;
+		list-style: disc inside;
+	
+	}
+	</style>
+</head>
+<body>
+	<table width="100%" height="324"  border="0" cellpadding="6" cellspacing="0" class="redborder  maintable">
+		<tr>
+			<td>
+				<h2>Order Form</h2>
+			</td>
+		</tr>
+		
+		<?php if ($form->has_errors()): ?>
+		<tr>
+			<td>
+				<div class="errors">
+					<p>Could not submit your request due to the following errors:</p>
+					<ul>
+						<?php echo $form->display_errors('<li>', '</li>'); ?>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<?php endif; ?>
+		
+		<tr>
+			<td>
+				<?php echo $form->open(); ?>
+					<table width="122" border="0" cellspacing="0" cellpadding="5">
+						<tr>
+							<td align="right" nowrap><b><?php echo $form->name->label(); ?></b></td>
+							<td><?php echo $form->name->html(); ?></td>
+						</tr>
+						<tr>
+							<td align="right" nowrap><b><?php echo $form->company->label(); ?></b></td>
+							<td><?php echo $form->company->html(); ?></td>
+						</tr>
+						<tr>
+							<td align="right" nowrap><b><?php echo $form->bookname->label(); ?></b></td>
+							<td align="left">
+								<?php echo $form->bookname->html(); ?>
+							</td>
+						</tr>
+						<tr>
+							<td align="right" nowrap><b><?php echo $form->quantity->label(); ?></b></td>
+							<td nowrap><?php echo $form->quantity->html(); ?></td>
+						</tr>
+						<tr>
+							<td style="padding-top:8px" align="right" valign="top" nowrap><b><?php echo $form->message->label(); ?></b></td>
+							<td style="padding-top:8px" valign="top" nowrap><?php echo $form->message->html(); ?><br>
+							 &nbsp;&nbsp;<input type="submit" value="Submit!">
+						</tr>
+					</table>
+				<?php echo $form->close(); ?>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>
+
+*** END SAMPLE USAGE ***/
 
 abstract class Phorm_Phorm
 {
