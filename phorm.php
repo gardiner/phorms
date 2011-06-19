@@ -490,15 +490,11 @@ abstract class Phorm_Field
 
 	public function __construct($label, array $validators=array(), array $attributes=array(), $lang='en')
 	{
-		if( !isset($attributes['class']) )
+		if( !isset($attributes['title']) )
 		{
-			$attributes['class'] = strtolower(get_class($this));
+			$attributes['title'] = $label;
 		}
-		else
-		{
-			$attributes['class'] .= ' '.strtolower(get_class($this));
-		}
-		
+				
 		$this->label = (string) $label;
 		$this->attributes = $attributes;
 		$this->validators = $validators;
