@@ -79,7 +79,7 @@ if ($form->is_valid()) {
 		
 		<tr>
 			<td>
-				<?php echo $form->open(); ?>
+				<?php echo $form->open('http://example.com/submit/to/page.php'); ?>
 					<table width="122" border="0" cellspacing="0" cellpadding="5">
 						<tr>
 							<td align="right" nowrap><b><?php echo $form->name->label(); ?></b></td>
