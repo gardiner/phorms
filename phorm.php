@@ -244,6 +244,16 @@ abstract class Phorm_Phorm
 		}
 		return $this->errors;
 	}
+
+	public function get_error_strings() {
+		$clean_errors = array();
+		$nested_errors = $this->get_errors();
+		foreach ($nested_errors as $field_name => $field_error)
+		{
+			$clean_errors[] = $this->$field_name->label(false) . ': ' . $field_error[1];
+		}
+		return $clean_errors;
+	}
 	
 	public function display_errors($prefix = '', $suffix = '')
 	{	
