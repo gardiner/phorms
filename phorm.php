@@ -288,7 +288,7 @@ abstract class Phorm_Phorm
 
 		return sprintf('<form method="%s" action="%s"%s id="%s">',
 			$this->method,
-			htmlentities((string) $target),
+			$target,
 			($this->multi_part) ? ' enctype="multipart/form-data"' : '',
 			strtolower(get_class($this))
 		)."\n";
